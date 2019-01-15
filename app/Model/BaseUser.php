@@ -15,7 +15,7 @@ class BaseUser extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'user','password', 'role', 'state'
+        'user','password', 'state'
     ];
 
     /**
@@ -24,7 +24,7 @@ class BaseUser extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password',
+        'password', 'updated_token_at',
     ];
 
     /**

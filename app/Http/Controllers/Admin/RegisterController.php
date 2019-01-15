@@ -48,7 +48,6 @@ class RegisterController extends Controller
     {
         return Admin::create([
             'user' => $data['user'],
-            'role' => 0,
             'password' => Hash::make($data['password']),
         ]);
     }
