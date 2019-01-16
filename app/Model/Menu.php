@@ -11,6 +11,7 @@ class Menu extends BaseModel
 
     public static function getFormatMenu() {
         return DB::table(self::$dbTable)->where('type', 0)
+            ->select('id', 'name', 'pid', 'depth', 'path', 'icon')
             ->where('status', 0)
             ->orderBy('sort_factor')
             ->get();
