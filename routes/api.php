@@ -18,25 +18,25 @@ Route::any('unAuth', function () {
 })->name('unAuth');
 
 Route::prefix('admin')->namespace('Admin')->group(function() {
-    Route::post('register', 'RegisterController@register');
+//    Route::post('register', 'RegisterController@register');
     Route::post('login', 'LoginController@login');
-    Route::middleware('auth:admin','update:admin')->group(function() {
+//    Route::middleware('auth:admin','update:admin')->group(function() {
         include 'admin.php';
-    });
+//    });
 });
 
 Route::prefix('customer')->namespace('Customer')->group(function() {
     Route::post('register', 'RegisterController@register');
     Route::post('login', ' @login');
-    Route::middleware('auth:customer','update:customer')->group(function() {
+//    Route::middleware('auth:customer','update:customer')->group(function() {
         include 'customer.php';
-    });
+//    });
 });
 
 Route::prefix('student')->namespace('Student')->group(function() {
     Route::post('register', 'RegisterController@register');
     Route::post('login', 'LoginController@login');
-    Route::middleware('auth:student','update:student')->group(function() {
+//    Route::middleware('auth:student','update:student')->group(function() {
         include 'student.php';
-    });
+//    });
 });

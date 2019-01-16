@@ -8,8 +8,4 @@
 
 Route::post('logout', 'LoginController@logout');
 
-Route::get('user', function (){
-    return response()->json([
-        'data' => Auth::guard('admin')->user()->toArray()
-    ]);
-});
+Route::get('getMenu', 'MenuController@getMenu');
