@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +18,7 @@ Route::any('unAuth', function () {
 })->name('unAuth');
 
 Route::prefix('admin')->namespace('Admin')->group(function() {
-//    Route::post('register', 'RegisterController@register');
+    Route::post('register', 'RegisterController@register');
     Route::post('login', 'LoginController@login');
 //    Route::middleware('auth:admin','update:admin')->group(function() {
         include 'admin.php';
