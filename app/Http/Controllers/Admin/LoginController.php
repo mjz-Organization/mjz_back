@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\LoginRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -40,12 +40,14 @@ class LoginController extends Controller
         return Auth::guard('adminLogin');
     }
 
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
         if ($this->attemptLogin($request)) {
             $user = $this->guard()->user();
 
             $user->generateToken();
+
+            $this->loginSuccess($request, $user);
 
             return responseToJson(0,'登录成功',$user->toArray());
         }
@@ -63,5 +65,11 @@ class LoginController extends Controller
         }
 
         return responseToJson(0,'退出成功');
+    }
+
+    // 登陆成功之后调用
+    private function loginSuccess($request, $user)
+    {
+        session(['user'=> $user]);
     }
 }
