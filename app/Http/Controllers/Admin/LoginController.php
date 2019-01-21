@@ -47,6 +47,8 @@ class LoginController extends Controller
 
             $user->generateToken();
 
+            $this->loginSuccess($request, $user);
+
             return responseToJson(0,'登录成功',$user->toArray());
         }
 
@@ -63,5 +65,11 @@ class LoginController extends Controller
         }
 
         return responseToJson(0,'退出成功');
+    }
+
+    // 登陆成功之后调用
+    private function loginSuccess($request, $user)
+    {
+        session(['user'=> $user]);
     }
 }
