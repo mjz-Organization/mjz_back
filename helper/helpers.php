@@ -13,8 +13,7 @@
  * @param null $result
  * @return \Illuminate\Http\JsonResponse
  */
-function responseToJson($code = 0, $msg = '', $result = null)
-{
+function responseToJson ($code = 0, $msg = '', $result = null) {
     $res["code"] = $code;
     $res["msg"] = $msg;
     if (!empty($result)) {
@@ -27,8 +26,7 @@ function responseToJson($code = 0, $msg = '', $result = null)
  * 获得毫秒级的时间戳
  * @return float
  */
-function millisecond()
-{
+function millisecond () {
     return ceil(microtime(true) * 1000);
 }
 
@@ -38,7 +36,7 @@ function millisecond()
  * @param $interval :给定的时间间隔（分钟）默认10分钟
  * @return bool 大于：true；小于：false
  */
-function isTimeGreater($time, $interval = 10){
+function isTimeGreater ($time, $interval = 10) {
     $int = millisecond() - $time;
     $interval = $interval * 60 * 1000;
     return $int > $interval ? true : false;
@@ -49,7 +47,7 @@ function isTimeGreater($time, $interval = 10){
  * @param $img
  * @return string|null
  */
-function uploadImg($img){
+function uploadImg ($img) {
     if ($img) {
         $fileExtname=$img->getClientOriginalExtension();
         $path=$img->getRealPath();
@@ -58,10 +56,8 @@ function uploadImg($img){
         if ($bool){
             return $imgName;
         }
-        return null;
-    }else{
-        return null;
     }
+    return null;
 }
 
 /**
