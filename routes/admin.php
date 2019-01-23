@@ -9,3 +9,7 @@
 Route::post('logout', 'LoginController@logout');
 
 Route::get('getMenu', 'MenuController@getMenu');
+
+//角色权限管理
+Route::post('createRole', 'RoleAuthController@createOrUpdate');
+Route::post('updateRole', 'RoleAuthController@createOrUpdate');

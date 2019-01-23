@@ -10,10 +10,10 @@ class Menu extends BaseModel
     public static $dbTable = 'menu';
 
     public static function getFormatMenu() {
-        return DB::table(self::$dbTable)->where('type', 0)
+        return DB::table(self::$dbTable)
             ->select('id', 'name', 'pid', 'depth', 'path', 'icon')
             ->where('status', 0)
-            ->orderBy('sort_factor')
+            ->orderBy('code')
             ->get();
     }
 }
