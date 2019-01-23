@@ -53,6 +53,10 @@ class StartPageController extends Controller
         }
     }
 
+    public function dropAd(Request $request){
+
+    }
+
     private function validator(array $data,$action='create'){
         switch ($action){
             case 'create':

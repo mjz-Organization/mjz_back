@@ -28,4 +28,7 @@ Route::group(['prefix' => 'startPage'], function () {
     Route::get('getAd','StartPageController@selectAd');
     //更新
     Route::post('updateAd','StartPageController@alterAd');
+    //删除
+    Route::post('deleteAd','StartPageController@dropAd');
+
 });
