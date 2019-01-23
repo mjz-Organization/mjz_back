@@ -9,7 +9,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Model\Role;
-use App\Http\Requests\RoleAuthRequest;
+use App\Http\Requests\RoleAuth\GetRoleRequest;
+use App\Http\Requests\RoleAuth\RoleAuthRequest;
+use App\Http\Requests\RoleAuth\DeleteRoleRequest;
 
 class RoleAuthController
 {
@@ -27,5 +29,35 @@ class RoleAuthController
             return responseToJson(0, 'success');
         }
         return responseToJson(2,'修改角色权限失败');
+    }
+
+    /**
+     * 删除角色及其权限
+     * @param DeleteRoleRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function deleteRole(DeleteRoleRequest $request) {
+        if (Role::deleteRole($request->input('idArr'))) {
+            return responseToJson(0, 'success');
+        }
+        return responseToJson(2, '删除角色失败');
+    }
+
+    /**
+     * 获得所有角色
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getRoles() {
+        //TODO::
+        return responseToJson(0, 'success', Role::all());
+    }
+
+    /**
+     * 获得单个角色与其权限id
+     * @param GetRoleRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getRoleAndAuth(GetRoleRequest $request) {
+        return responseToJson(0, 'success', Role::getRoleAndAuth($request->input('roleId')));
     }
 }

@@ -6,6 +6,11 @@ class RoleMenu extends BaseModel
 {
     protected $table = 'role_menu';
 
+    /**
+     * 更新角色权限
+     * @param $roleId : 角色id
+     * @param $authArr : 数组|角色能操作菜单的id
+     */
     public static function updateRoleAuto($roleId, $authArr) {
         $data = [];
         $time = time();
@@ -17,7 +22,15 @@ class RoleMenu extends BaseModel
                 'updated_at' => $time
             ];
         }
-        RoleMenu::where('role_id',$roleId)->delete();
-        RoleMenu::insert($data);
+        self::where('role_id',$roleId)->forceDelete();
+        self::insert($data);
+    }
+
+    /**
+     * 删除多个角色的权限
+     * @param $idArr :数组|角色id
+     */
+    public static function deleteRoleAuth($idArr) {
+        self::whereIn('role_id', $idArr)->delete();
     }
 }

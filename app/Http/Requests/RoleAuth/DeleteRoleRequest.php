@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\RoleAuth;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RoleAuthRequest extends FormRequest
+class DeleteRoleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,7 @@ class RoleAuthRequest extends FormRequest
     public function rules()
     {
         return [
-            'roleName' => 'required|string|max:20',
-            'authArr'  => 'required|array'
+            'idArr' => 'required|array'
         ];
     }
 }

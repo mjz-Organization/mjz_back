@@ -16,7 +16,7 @@ class Role extends BaseModel
      * @return bool
      */
     public static function createOrUpdate($roleName, $authArr, $roleId = null) {
-        $role = empty($roleId) ? new Role() : Role::find($roleId);
+        $role = empty($roleId) ? new self() : self::find($roleId);
         $role->role_name = $roleName;
 
         DB::beginTransaction();
@@ -29,5 +29,39 @@ class Role extends BaseModel
         }
         DB::commit();
         return true;
+    }
+
+    /**
+     * 删除角色及其权限
+     * @param $idArr
+     * @return bool
+     */
+    public static function deleteRole($idArr) {
+        DB::beginTransaction();
+        try {
+            self::whereIn('id', $idArr)->delete();
+            RoleMenu::deleteRoleAuth($idArr);
+        } catch(\Exception $e) {
+            DB::rollback();
+            return false;
+        }
+        DB::commit();
+        return true;
+    }
+
+    /**
+     * 获得角色及其权限id
+     * @param $roleId
+     * @return mixed
+     */
+    public static function getRoleAndAuth($roleId) {
+        $data['role'] = self::find($roleId);
+        $resust = RoleMenu::select('menu_id')
+            ->where('role_id',$roleId)
+            ->get();
+        foreach ($resust as $roleMenu) {
+            $data['roleAuth'][] = $roleMenu['menu_id'];
+        }
+        return $data;
     }
 }
