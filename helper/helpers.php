@@ -43,3 +43,23 @@ function isTimeGreater($time, $interval = 10){
     $interval = $interval * 60 * 1000;
     return $int > $interval ? true : false;
 }
+
+/**
+ * 上传图片
+ * @param $img
+ * @return string|null
+ */
+function uploadImg($img){
+    if ($img) {
+        $fileName= $img->getClientOriginalName();
+        $path=$img->getRealPath();
+        $imgName=date('Ymd') . uniqid() . $fileName;
+        $bool= Storage::disk('images')->put($imgName,file_get_contents($path));
+        if ($bool){
+            return $imgName;
+        }
+        return null;
+    }else{
+        return null;
+    }
+}
