@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\StartPageRequest;
 use App\Model\StartPageRecord;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class StartPageController extends Controller
@@ -11,29 +11,28 @@ class StartPageController extends Controller
 
     /**
      * get 获取启动页广告列表
-     * @param Request $request
+     * @param StartPageRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function selectAd(Request $request){
+    public function selectStartPageAd(StartPageRequest $request){
         $results = StartPageRecord::selectAd($request->per_page,$request->record_type);
         if (empty($results->data)){
             return responseToJson(0,'success',$results);
         }
-        return responseToJson(1,'failure');
+        return responseToJson(2,'failure');
     }
 
     /**
      * post 新增启动页广告
-     * @param Request $request
+     * @param StartPageRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function createAd(Request $request){
+    public function createStartPageAd(StartPageRequest $request){
         $data = $request->all();
-        if ($this->validator($data)) return responseToJson(1,'数据格式错误');
-        if(StartPageRecord::createAd($data)){
+        if(StartPageRecord::createAd($data,time())){
             return responseToJson(0,'添加成功');
         }else{
-            return responseToJson(1,'添加失败');
+            return responseToJson(2,'添加失败');
         }
     }
 
@@ -43,51 +42,23 @@ class StartPageController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
 
-    public function alterAd(Request $request){
+    public function updateStartPageAd(StartPageRequest $request){
         $data = $request->all();
-        if ($this->validator($data,'update')) return responseToJson(1,'数据格式错误');
-        if (StartPageRecord::updateAd($data)){
+        if (StartPageRecord::updateAd($data,time())){
             return responseToJson(0,'修改成功');
         }else{
-            return responseToJson(1,'修改失败');
+            return responseToJson(2,'修改失败');
         }
     }
 
-    public function dropAd(Request $request){
-
+    public function deleteStartPageAd(StartPageRequest $request){
+        $data = $request->all();
+        if (StartPageRecord::deleteAd($data,time())){
+            return responseToJson(0,'修改成功');
+        }else{
+            return responseToJson(2,'修改失败');
+        }
     }
 
-    private function validator(array $data,$action='create'){
-        switch ($action){
-            case 'create':
-                $rules = [
-                    'record_type' => 'required',
-                    'ad_name' => 'required|max:50',
-                    'ad_img' => 'required|file|image',
-                    'ad_introduce' => 'required'
-                ];
-                break;
-            case 'update':
-                $rules = [
-                    'ad_id' => 'required',
-                    'images_id' => 'required',
-                    'path' => 'required',
-                    'record_type' => 'required',
-                    'ad_name' => 'required|max:50',
-                    'ad_introduce' => 'required'
-                ];
-                break;
-            case 'delete':
-                $rules = [
-                    'ad_id' => 'required'
-                ];
-                break;
-        }
-        $validator = \Validator::make($data,$rules);
-        if($validator->fails()){
-            return true;
-        }
-        return false;
-    }
 
 }

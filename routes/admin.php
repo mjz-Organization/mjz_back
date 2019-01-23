@@ -23,12 +23,12 @@ Route::group(['prefix' => 'roleAuth'], function () {
  */
 Route::group(['prefix' => 'startPage'], function () {
     //添加
-    Route::post('addAd', 'StartPageController@createAd');
+    Route::post('createAd', 'StartPageController@createStartPageAd');
     //查询
-    Route::get('getAd','StartPageController@selectAd');
+    Route::get('selectAd','StartPageController@selectStartPageAd');
     //更新
-    Route::post('updateAd','StartPageController@alterAd');
+    Route::post('updateAd','StartPageController@updateStartPageAd');
     //删除
-    Route::post('deleteAd','StartPageController@dropAd');
+    Route::post('deleteAd','StartPageController@deleteStartPageAd');
 
 });
