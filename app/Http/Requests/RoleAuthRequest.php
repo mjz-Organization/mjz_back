@@ -2,30 +2,26 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
-
-class RoleAuthRequest extends FormRequest
+class RoleAuthRequest extends BaseRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
-    {
-        return [
+    protected $rules = [
+        'getRoles' => [
+            'pageSize' => 'required|numeric'
+        ],
+        'getRoleAndAuth' => [
+            'roleId' => 'required|numeric'
+        ],
+        'createRole' => [
             'roleName' => 'required|string|max:20',
             'authArr'  => 'required|array'
-        ];
-    }
+        ],
+        'updateRole' => [
+            'roleId'   => 'required|string|max:20',
+            'roleName' => 'required|string|max:20',
+            'authArr'  => 'required|array'
+        ],
+        'deleteRole' => [
+            'idArr' => 'required|array'
+        ]
+    ];
 }

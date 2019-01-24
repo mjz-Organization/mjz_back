@@ -14,8 +14,12 @@ Route::get('getMenu', 'MenuController@getMenu');
  * 角色权限
  */
 Route::group(['prefix' => 'roleAuth'], function () {
+    Route::get('getRoles', 'RoleAuthController@getRoles');
+    Route::get('getRoleAndAuth', 'RoleAuthController@getRoleAndAuth');
+
     Route::post('createRole', 'RoleAuthController@createOrUpdate');
     Route::post('updateRole', 'RoleAuthController@createOrUpdate');
+    Route::post('deleteRole', 'RoleAuthController@deleteRole');
 });
 
 /**

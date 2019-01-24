@@ -2,12 +2,9 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
-
-class StartPageRequest extends FormRequest
+class StartPageRequest extends BaseRequest
 {
-
-    private $rules = [
+    protected $rules = [
         'selectAd' =>[
             'page' => 'required|integer',
             'per_page' => 'required|integer',
@@ -31,30 +28,4 @@ class StartPageRequest extends FormRequest
             'ad' => 'required|array',
         ]
     ];
-
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
-    {
-        $rules = [];
-        $action = explode('/',trim(FormRequest::getPathInfo()));
-        $action = $action[count($action)-1];
-        foreach ($this->rules as $key => $val){
-            if ($action == $key) $rules = $val;
-        }
-        return $rules;
-    }
 }
