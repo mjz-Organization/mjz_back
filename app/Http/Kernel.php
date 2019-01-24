@@ -65,6 +65,7 @@ class Kernel extends HttpKernel
         'update' => \App\Http\Middleware\UpdateToken::class,
         'cors' => \App\Http\Middleware\EnableCrossRequest::class,
         'loginCheck' => \App\Http\Middleware\LoginCheck::class,
+        'userType' => \App\Http\Middleware\AddUserType::class,
     ];
 
     /**

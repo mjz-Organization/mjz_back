@@ -16,7 +16,7 @@ class BaseUser extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'user','password', 'state'
+        'user','password', 'phone', 'status'
     ];
 
     /**
@@ -57,5 +57,30 @@ class BaseUser extends Authenticatable
         $this->save();
 
         return $this->api_token;
+    }
+
+    /**
+     * 删除用户
+     * @param $idArr
+     */
+    public static function deleteUser($idArr) {
+        self::whereIn('id', $idArr)->delete();
+    }
+
+    /**
+     * 创建或者更新用户
+     * @param $data
+     */
+    public static function createOrUpdateUser($data) {
+        $data = self::hashPassword($data);
+        $admin = array_has($data, 'userId') ? self::find($data['userId'])->fill($data) : new self($data);
+        $admin->save();
+    }
+
+    private static function hashPassword($data) {
+        if (array_has($data, 'password')) {
+            $data['password'] = bcrypt($data['password']);
+        }
+        return $data;
     }
 }

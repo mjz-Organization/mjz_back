@@ -7,8 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
-class LoginController extends Controller
-{
+class LoginController extends Controller {
     /*
     |--------------------------------------------------------------------------
     | Login Controller
@@ -26,8 +25,7 @@ class LoginController extends Controller
      * 登录使用的账号字段名
      * @return string
      */
-    public function username()
-    {
+    public function username() {
         return 'user';
     }
 
@@ -35,13 +33,11 @@ class LoginController extends Controller
      * 认证服务方（登录时需要使用SessionGuard，访问api时使用TokenGuard）
      * @return mixed
      */
-    protected function guard()
-    {
+    protected function guard() {
         return Auth::guard('adminLogin');
     }
 
-    public function login(LoginRequest $request)
-    {
+    public function login(LoginRequest $request) {
         if ($this->attemptLogin($request)) {
             $user = $this->guard()->user();
 
@@ -55,8 +51,7 @@ class LoginController extends Controller
         return responseToJson(2,'登录失败');
     }
 
-    public function logout()
-    {
+    public function logout() {
         $user = Auth::guard('admin')->user();
 
         if ($user) {
@@ -68,8 +63,7 @@ class LoginController extends Controller
     }
 
     // 登陆成功之后调用
-    private function loginSuccess($user)
-    {
+    private function loginSuccess($user) {
         session(['user'=> $user]);
     }
 }

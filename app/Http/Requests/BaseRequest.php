@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 class BaseRequest extends FormRequest
 {
     /**
-     * 某一模块中定义的规则二维数组：[事件 => 规则]
+     * 某一模块中定义的规则二维数组：
      *
      * @var array
      */

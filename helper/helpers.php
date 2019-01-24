@@ -48,14 +48,11 @@ function isTimeGreater($time, $interval = 10) {
  * @return string|null
  */
 function uploadImg($img) {
-    if ($img) {
-        $fileExtname=$img->getClientOriginalExtension();
-        $path=$img->getRealPath();
-        $imgName=date('YmdHis') . uniqid() . '.' . $fileExtname;
-        $bool= Storage::disk('images')->put($imgName,file_get_contents($path));
-        if ($bool) {
-            return $imgName;
-        }
+    if (!empty($img)) {
+        $imgName = date('YmdHis') . uniqid() . '.' . $img->getClientOriginalExtension();
+        $bool= Storage::disk('images')->put($imgName,file_get_contents($img->getRealPath()));
+
+        if ($bool) return $imgName;
     }
     return null;
 }
@@ -65,10 +62,8 @@ function uploadImg($img) {
  * @param $path
  * @return mixed
  */
-function deleteImg($path){
-    $imageName = explode('/',trim($path));
-    $imageName = $imageName[count($imageName)-1];
-    return Storage::disk('images')->delete($imageName);
+function deleteImg($path) {
+    return Storage::disk('images')->delete(array_last(explode('/',trim($path))));
 }
 
 /** updated_at/created_at 自动维护
@@ -77,9 +72,9 @@ function deleteImg($path){
  * @param null $time
  * @return array
  */
-function atTimeSave(array $data,$action = 'create',$time = null){
+function atTimeSave(array $data, $action = 'create', $time = null){
     if ($time == null) $time = time();
-    switch ($action){
+    switch ($action) {
         case 'create':
             $atTime = [
                 'updated_at' => $time,
@@ -92,10 +87,10 @@ function atTimeSave(array $data,$action = 'create',$time = null){
             ];
             break;
     }
-    if(count($data) == count($data,1)){
+    if (count($data) == count($data,1)) {
         return array_merge($data,$atTime);
     }
-    foreach ($data as $key=>$value){
+    foreach ($data as $key => $value) {
         $data[$key] = array_merge($value,$atTime);
     }
     return $data;
