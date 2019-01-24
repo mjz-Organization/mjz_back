@@ -25,7 +25,11 @@ class StartPageRequest extends BaseRequest
             'content' => 'required|string'
         ],
         'deleteAd' =>[
-            'ad_id' => 'required'
+            'ad' => 'required|array',
+        ],
+        'changeOrderAd' =>[
+            'from_id' => 'required|integer',
+            'to_id' => 'required|integer'
         ]
     ];
 }

@@ -61,5 +61,23 @@ Route::group(['prefix' => 'startPage'], function () {
     Route::post('updateAd','StartPageController@updateStartPageAd');
     //删除
     Route::post('deleteAd','StartPageController@deleteStartPageAd');
+    //修改顺序
+    Route::post('changeOrderAd','StartPageController@updateOrderAd');
+});
 
+/**
+ * 首页管理
+ */
+Route::group(['prefix' => 'indexPage'], function () {
+    //添加首页广告
+    Route::post('createIndex', 'IndexController@createIndexPageAd');
+
+    //更新首页广告
+    Route::post('updateIndex', 'IndexController@updateIndexPageAd');
+
+    //查询首页广告
+    Route::get('selectIndex','IndexController@selectIndexPageAd');
+
+    //删除首页广告
+    Route::get('deleteIndex','IndexController@deleteIndexPageAd');
 });

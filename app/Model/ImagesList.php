@@ -3,58 +3,60 @@
 namespace App\Model;
 
 
-use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class ImagesList extends BaseModel
 {
+
+    use SoftDeletes;
+
     protected $table = 'images_list';
 
     public static $dpTable = 'images_list';
 
-    public static function ModelDB(){
-        return DB::table(self::$dpTable);
-    }
+    protected $guarded = [];
+
+    protected $dates = ['delete_at'];
 
     /**
      * 添加图片并返回Id
      * @param array $data
-     * @param null $time
      * @return int|null
      */
-    public static function createImgGetId(array $data,$time = null){
+    public static function createImg(array $data){
         $imgName = uploadImg($data['image']);
-        if ($imgName) return ImagesList::ModelDB()
-            ->insertGetId(atTimeSave([
+        if ($imgName) return self::create([
                 'path'=>'/storage/images/'.$imgName,
                 'content'=>$data['content'],
-                ],'create',$time));
-        return null;
+                ]);
+        return false;
     }
 
     /**
      * 更新单个图片
      * @param array $data
-     * @param null $time
-     * @return int
+     * @return bool
      */
-    public static function updateOnlyImg(array $data,$time = null){
+    public static function updateOnlyImg(array $data){
         $imgName = uploadImg($data['image']);
-        $updateArr = ($imgName == null)?[
-            'id' => [
-                $data['images_id']
-            ],
-            'data' => atTimeSave([
+        $updateArr = ($imgName == null)? [
                 'content'=>$data['content']
-            ],'update',$time)
-        ] : [
-            'id' => [
-                $data['images_id']
-            ],
-            'data' => atTimeSave([
+            ] : [
                 'path' => '/storage/images/'.$imgName,
                 'content'=>$data['content']
-            ],'update',$time)
-        ];
-        return ImagesList::ModelDB()->whereIn('id',$updateArr['id'])->update($updateArr['data']);
+            ];
+        if ((self::where('id',$data['images_id'])->update($updateArr)) > 0) return true;
+        return false;
+    }
+
+    /**
+     * 删除图片
+     * @param array $data
+     * @return bool
+     */
+    public static function deleteImg(array $data){
+         if((self::whereIn('id', $data)->delete()) > 0) return true;
+         return false;
     }
 }
