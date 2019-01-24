@@ -13,7 +13,7 @@ class ImagesList extends BaseModel
 
     protected $table = 'images_list';
 
-    public static $dpTable = 'images_list';
+    public static $dbTable = 'images_list';
 
     protected $guarded = [];
 
