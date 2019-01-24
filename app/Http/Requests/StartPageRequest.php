@@ -28,7 +28,7 @@ class StartPageRequest extends FormRequest
             'content' => 'required|string'
         ],
         'deleteAd' =>[
-            'ad_id' => 'required'
+            'ad' => 'required|array',
         ]
     ];
 

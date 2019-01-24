@@ -29,7 +29,7 @@ class StartPageController extends Controller
      */
     public function createStartPageAd(StartPageRequest $request){
         $data = $request->all();
-        if(StartPageRecord::createAd($data,time())){
+        if(StartPageRecord::createAd($data)){
             return responseToJson(0,'添加成功');
         }else{
             return responseToJson(2,'添加失败');
@@ -44,21 +44,26 @@ class StartPageController extends Controller
 
     public function updateStartPageAd(StartPageRequest $request){
         $data = $request->all();
-        if (StartPageRecord::updateAd($data,time())){
+        if (StartPageRecord::updateAd($data)){
             return responseToJson(0,'修改成功');
         }else{
             return responseToJson(2,'修改失败');
         }
     }
+
+    /**
+     * post 删除启动页广告
+     * @param StartPageRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
 
     public function deleteStartPageAd(StartPageRequest $request){
         $data = $request->all();
-        if (StartPageRecord::deleteAd($data,time())){
-            return responseToJson(0,'修改成功');
+        if (StartPageRecord::deleteAd($data['ad'])){
+            return responseToJson(0,'删除成功');
         }else{
-            return responseToJson(2,'修改失败');
+            return responseToJson(2,'删除失败');
         }
     }
-
 
 }
