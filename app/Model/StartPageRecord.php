@@ -23,10 +23,13 @@ class StartPageRecord extends BaseModel
      * @param int $per_page
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public static function selectAd($per_page = 5,$record_type = 0){
+    public static function selectAd($per_page = 5,$record_type = 0,$select_data = null){
         $pageList = ImagesList::rightJoin(self::$dpTable,ImagesList::$dpTable.'.id','=',self::$dpTable.'.images_id')
-            ->where('record_type','=',$record_type)->paginate($per_page);
-        return $pageList;
+            ->where('record_type','=',$record_type);
+        if ($select_data == null) return $pageList->paginate($per_page);
+        return $pageList->where(function ($query) use($select_data) {
+            $query->orWhere('name', 'like', '%'.$select_data.'%')->orWhere('content', 'like', '%'.$select_data.'%');
+        })->paginate($per_page);
     }
 
     /**
@@ -69,6 +72,26 @@ class StartPageRecord extends BaseModel
                 DB::commit();
                 return true;
             }
+        }catch (\Exception $e) {
+            DB::rollBack();
+        }
+        return false;
+    }
+
+    /**
+     * 改变启动页顺序
+     * @param array $data
+     * @return bool
+     */
+    public static function updateOrderAd(array $data){
+        DB::beginTransaction();
+        try{
+            $oldAd = self::find($data['from_id']);
+            $newAd = self::find($data['to_id']);
+            self::where('id',$oldAd->id)->update(['img_order' => $newAd->img_order]);
+            self::where('id',$newAd->id)->update(['img_order' => $oldAd->img_order]);
+            DB::commit();
+            return true;
         }catch (\Exception $e) {
             DB::rollBack();
         }

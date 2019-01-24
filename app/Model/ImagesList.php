@@ -22,7 +22,6 @@ class ImagesList extends BaseModel
     /**
      * 添加图片并返回Id
      * @param array $data
-     * @param null $time
      * @return int|null
      */
     public static function createImg(array $data){

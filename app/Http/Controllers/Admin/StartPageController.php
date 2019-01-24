@@ -15,7 +15,7 @@ class StartPageController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function selectStartPageAd(StartPageRequest $request){
-        $results = StartPageRecord::selectAd($request->per_page,$request->record_type);
+        $results = StartPageRecord::selectAd($request->per_page,$request->record_type,$request->select_data);
         if (empty($results->data)){
             return responseToJson(0,'success',$results);
         }
@@ -45,6 +45,21 @@ class StartPageController extends Controller
     public function updateStartPageAd(StartPageRequest $request){
         $data = $request->all();
         if (StartPageRecord::updateAd($data)){
+            return responseToJson(0,'修改成功');
+        }else{
+            return responseToJson(2,'修改失败');
+        }
+    }
+
+    /**
+     * post 修改启动页广告顺序
+     * @param StartPageRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+
+    public function updateOrderAd(StartPageRequest $request){
+        $data = $request->all();
+        if (StartPageRecord::updateOrderAd($data)){
             return responseToJson(0,'修改成功');
         }else{
             return responseToJson(2,'修改失败');
