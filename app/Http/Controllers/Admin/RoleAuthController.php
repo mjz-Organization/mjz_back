@@ -12,6 +12,7 @@ use App\Model\Role;
 use App\Http\Requests\RoleAuth\GetRoleRequest;
 use App\Http\Requests\RoleAuth\RoleAuthRequest;
 use App\Http\Requests\RoleAuth\DeleteRoleRequest;
+use Illuminate\Http\Request;
 
 class RoleAuthController
 {
@@ -45,11 +46,11 @@ class RoleAuthController
 
     /**
      * 获得所有角色
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getRoles() {
-        //TODO::
-        return responseToJson(0, 'success', Role::all());
+    public function getRoles(Request $request) {
+        return responseToJson(0, 'success', Role::paginate($request->input('pageSize')));
     }
 
     /**
