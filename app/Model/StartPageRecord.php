@@ -23,7 +23,7 @@ class StartPageRecord extends BaseModel
      * @param int $per_page
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public static function selectAd($per_page = 5,$record_type = 0,$select_data = null){
+    public static function selectAd($per_page = 10,$record_type = 0,$select_data = null){
         $pageList = ImagesList::rightJoin(self::$dbTable,ImagesList::$dbTable.'.id','=',self::$dbTable.'.images_id')
             ->where('record_type','=',$record_type);
         if ($select_data == null) return $pageList->paginate($per_page);

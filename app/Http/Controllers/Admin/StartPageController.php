@@ -38,7 +38,7 @@ class StartPageController extends Controller
 
     /**
      * post 修改启动页广告
-     * @param Request $request
+     * @param StartPageRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
 

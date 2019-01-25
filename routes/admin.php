@@ -43,14 +43,13 @@ Route::group(['prefix' => 'startPage'], function () {
  */
 Route::group(['prefix' => 'indexPage'], function () {
     //添加首页广告
-    Route::post('createIndex', 'IndexController@createIndexPageAd');
-
+    Route::post('createIndexAd', 'IndexController@createIndexPageAd');
     //更新首页广告
-    Route::post('updateIndex', 'IndexController@updateIndexPageAd');
-
+    Route::post('updateIndexAd', 'IndexController@updateIndexPageAd');
     //查询首页广告
-    Route::get('selectIndex','IndexController@selectIndexPageAd');
-
+    Route::get('selectIndexAd','IndexController@selectIndexPageAd');
     //删除首页广告
-    Route::get('deleteIndex','IndexController@deleteIndexPageAd');
+    Route::post('deleteIndexAd','IndexController@deleteIndexPageAd');
+    //修改首页广告顺序
+    Route::post('changeOrderIndexAd','IndexController@updateOrderIndexPageAd');
 });

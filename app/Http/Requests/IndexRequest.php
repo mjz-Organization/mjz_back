@@ -7,17 +7,31 @@ class IndexRequest extends BaseRequest
 {
 
     protected $rules = [
-        'createIndex' => [
-
+        'createIndexAd' => [
+            'record_type' => 'required|integer',
+            'name' => 'required|string|max:50',
+            'image' => 'required|file|image',
+            'content' => 'required|string'
         ],
-        'updateIndex' => [
-
+        'updateIndexAd' => [
+            'ad_id' => 'required|integer',
+            'images_id' => 'required|integer',
+            'path' => 'required|string',
+            'record_type' => 'required|integer',
+            'name' => 'required|string|max:50',
+            'content' => 'required|string'
         ],
-        'selectIndex' => [
-
+        'selectIndexAd' => [
+            'page' => 'required|integer',
+            'per_page' => 'required|integer',
+            'record_type' => 'required|integer'
         ],
-        'deleteIndex' => [
-
+        'deleteIndexAd' => [
+            'ad' => 'required|array',
+        ],
+        'changeOrderIndexAd' => [
+            'from_id' => 'required|integer',
+            'to_id' => 'required|integer'
         ]
     ];
 

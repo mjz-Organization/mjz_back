@@ -51,7 +51,7 @@ class ImagesList extends BaseModel
     }
 
     /**
-     * 删除图片
+     * 软删除图片
      * @param array $data
      * @return bool
      */
