@@ -32,6 +32,20 @@ class IndexRequest extends BaseRequest
         'changeOrderIndexAd' => [
             'from_id' => 'required|integer',
             'to_id' => 'required|integer'
+        ],
+        'createNovice' => [
+            'title' => 'required|string|max:45',
+            'content' => 'required|string',
+            'novice_type' => 'required|integer'
+        ],
+        'updateNovice' => [
+
+        ],
+        'selectNovice' => [
+
+        ],
+        'deleteNovice' => [
+
         ]
     ];
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\IndexRequest;
 use App\Model\CarouselRecord;
+use App\Model\NoviceArticle;
 
 class IndexController extends Controller
 {
@@ -80,6 +81,37 @@ class IndexController extends Controller
         }else{
             return responseToJson(2,'删除失败');
         }
+    }
+
+    /**
+     * post 添加新手导读界面
+     * @param IndexRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function createNoviceArticle(IndexRequest $request){
+        $data = $request->all();
+        $data['content'] = htmlentities($data['content']);
+        if (NoviceArticle::createNovice($data)){
+            return responseToJson(0,'添加成功');
+        }else{
+            return responseToJson(2,'添加失败');
+        }
+    }
+
+    public function updateNoviceArticle(IndexRequest $request){
+
+    }
+
+    public function selectNoviceArticle(IndexRequest $request){
+        $results = NoviceArticle::selectNovice($request->per_page,$request->novice_type,$request->select_data);
+        if (empty($results->data)){
+            return responseToJson(0,'success',$results);
+        }
+        return responseToJson(2,'failure');
+    }
+
+    public function deleteNoviceArticle(IndexRequest $request){
+
     }
 
 }
