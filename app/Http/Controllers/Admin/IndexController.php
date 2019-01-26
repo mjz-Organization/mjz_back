@@ -90,7 +90,6 @@ class IndexController extends Controller
      */
     public function createNoviceArticle(IndexRequest $request){
         $data = $request->all();
-        $data['content'] = htmlentities($data['content']);
         if (NoviceArticle::createNovice($data)){
             return responseToJson(0,'添加成功');
         }else{
