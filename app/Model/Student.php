@@ -5,6 +5,7 @@ namespace App\Model;
 class Student extends BaseUser
 {
     protected $table = 'user_student';
+    public static $dbTable = 'user_student';
 
     protected $fillable = [
         'name', 'phone', 'head_img', 'birthday', 'height', 'sex', 'address',

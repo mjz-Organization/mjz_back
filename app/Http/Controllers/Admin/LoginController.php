@@ -26,7 +26,7 @@ class LoginController extends Controller {
      * @return string
      */
     public function username() {
-        return 'user';
+        return 'name';
     }
 
     /**

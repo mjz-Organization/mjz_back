@@ -15,15 +15,27 @@ use App\Http\Requests\UserRequest;
 
 class UserController {
 
-    public function getUsers(UserRequest $request) {
-        $pageSize = $request->input('pageSize');
+    public function getUser(UserRequest $request) {
         switch ($request->input('userType')) {
             case 'admin' :
-                return responseToJson(0, 'success', Admin::paginate($pageSize));
+                return responseToJson(0, 'success', Admin::find($request->input('id')));
             case 'student' :
-                return responseToJson(0, 'success', Student::paginate($pageSize));
+                return responseToJson(0, 'success', Student::find($request->input('id')));
             case 'customer' :
-                return responseToJson(0, 'success', Customer::paginate($pageSize));
+                return responseToJson(0, 'success', Customer::find($request->input('id')));
+            default :
+                return responseToJson(2, '请求用户类型错误');
+        }
+    }
+
+    public function getUsers(UserRequest $request) {
+        switch ($request->input('userType')) {
+            case 'admin' :
+                return responseToJson(0, 'success', Admin::getUsers($request->all()));
+            case 'student' :
+                return responseToJson(0, 'success', Student::getUsers($request->all()));
+            case 'customer' :
+                return responseToJson(0, 'success', Customer::getUsers($request->all()));
             default :
                 return responseToJson(2, '请求用户类型错误');
         }
