@@ -44,13 +44,15 @@ function isTimeGreater($time, $interval = 10) {
 
 /**
  * 上传图片
- * @param $img
+ * @param $image
+ * @param string $drive
  * @return string|null
  */
-function uploadImg($img) {
+
+function uploadImg($img, $drive='images') {
     if (!empty($img)) {
         $imgName = date('YmdHis') . uniqid() . '.' . $img->getClientOriginalExtension();
-        $bool= Storage::disk('images')->put($imgName,file_get_contents($img->getRealPath()));
+        $bool= Storage::disk($drive)->put($imgName,file_get_contents($img->getRealPath()));
 
         if ($bool) return $imgName;
     }
@@ -60,10 +62,11 @@ function uploadImg($img) {
 /**
  * 删除图片
  * @param $path
+ * @param string $drive
  * @return mixed
  */
-function deleteImg($path) {
-    return Storage::disk('images')->delete(array_last(explode('/',trim($path))));
+function deleteImg($path, $drive='images') {
+    return Storage::disk($drive)->delete(array_last(explode('/',trim($path))));
 }
 
 /** updated_at/created_at 自动维护

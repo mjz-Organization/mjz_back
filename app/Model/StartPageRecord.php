@@ -12,7 +12,7 @@ class StartPageRecord extends BaseModel
 
     protected $table = 'start_page_record';
 
-    public static $dpTable = 'start_page_record';
+    public static $dbTable = 'start_page_record';
 
     protected $guarded = [];
 
@@ -23,8 +23,8 @@ class StartPageRecord extends BaseModel
      * @param int $per_page
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public static function selectAd($per_page = 5,$record_type = 0,$select_data = null){
-        $pageList = ImagesList::rightJoin(self::$dpTable,ImagesList::$dpTable.'.id','=',self::$dpTable.'.images_id')
+    public static function selectAd($per_page = 10,$record_type = 0,$select_data = null){
+        $pageList = ImagesList::rightJoin(self::$dbTable,ImagesList::$dbTable.'.id','=',self::$dbTable.'.images_id')
             ->where('record_type','=',$record_type);
         if ($select_data == null) return $pageList->paginate($per_page);
         return $pageList->where(function ($query) use($select_data) {
@@ -123,18 +123,10 @@ class StartPageRecord extends BaseModel
      * @return array
      */
     private static function deleteArr(array $data){
-        $adId = [];
-        $imagesId = [];
-        $path = [];
-        foreach ($data as $val){
-            $adId[] = $val['ad_id'];
-            $imagesId[] = $val['images_id'];
-            $path[] = $val['path'];
-        }
-        return[
-            'ad_id'=>$adId,
-            'images_id'=>$imagesId,
-            'path'=>$path
-        ];
+        $arr = ['ad_id'=>[],'images_id'=>[],'path'=>[]];
+        foreach ($data as $val)
+            foreach ($arr as $key=>$item)
+                $arr[$key][] = $val[$key];
+        return $arr;
     }
 }
