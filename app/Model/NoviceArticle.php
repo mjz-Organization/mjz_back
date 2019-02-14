@@ -12,8 +12,6 @@ class NoviceArticle extends BaseModel
 
     protected $guarded = [];
 
-    protected $dates = ['delete_at'];
-
     /**
      * 插入新手导读内容
      * @param array $data

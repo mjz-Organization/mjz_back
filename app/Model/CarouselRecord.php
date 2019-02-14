@@ -13,8 +13,6 @@ class CarouselRecord extends BaseModel
 
     protected $guarded = [];
 
-    protected $dates = ['delete_at'];
-
     /**
      * 添加首页广告
      * @param array $data

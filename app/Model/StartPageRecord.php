@@ -14,8 +14,6 @@ class StartPageRecord extends BaseModel
 
     protected $guarded = [];
 
-    protected $dates = ['delete_at'];
-
     /**
      * 分页展示启动页广告
      * @param int $per_page

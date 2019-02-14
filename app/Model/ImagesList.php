@@ -12,8 +12,6 @@ class ImagesList extends BaseModel
 
     protected $guarded = [];
 
-    protected $dates = ['delete_at'];
-
     /**
      * 添加图片并返回Id
      * @param array $data
