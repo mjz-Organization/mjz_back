@@ -27,7 +27,7 @@ class RoleAuthController
         if (Role::createOrUpdate($roleName, $authArr, $roleId)) {
             return responseToJson(0, 'success');
         }
-        return responseToJson(2,'修改角色权限失败');
+        return responseToJson(2,'操作失败');
     }
 
     /**

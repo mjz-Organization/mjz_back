@@ -16,7 +16,7 @@ class RoleAuthRequest extends BaseRequest
             'authArr'  => 'required|array'
         ],
         'updateRole' => [
-            'roleId'   => 'required|string|max:20',
+            'roleId'   => 'required|numeric|max:20',
             'roleName' => 'required|string|max:20',
             'authArr'  => 'required|array'
         ],

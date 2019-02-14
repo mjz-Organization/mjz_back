@@ -98,3 +98,12 @@ function atTimeSave(array $data, $action = 'create', $time = null){
     }
     return $data;
 }
+
+/**
+ * 获得当前登录用户的id
+ * @return bool|string
+ */
+function getUserId() {
+    $user = session('user');
+    return empty($user) ? 0 : $user->toArray()['id'];
+}
