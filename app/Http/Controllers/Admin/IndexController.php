@@ -101,6 +101,11 @@ class IndexController extends Controller
 
     }
 
+    /**
+     * get 获取新手导读页列表
+     * @param IndexRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function selectNoviceArticle(IndexRequest $request){
         $results = NoviceArticle::selectNovice($request->per_page,$request->novice_type,$request->select_data);
         if (empty($results->data)){
