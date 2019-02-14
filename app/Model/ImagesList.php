@@ -3,21 +3,14 @@
 namespace App\Model;
 
 
-use Illuminate\Database\Eloquent\SoftDeletes;
-
-
 class ImagesList extends BaseModel
 {
-
-    use SoftDeletes;
 
     protected $table = 'images_list';
 
     public static $dbTable = 'images_list';
 
     protected $guarded = [];
-
-    protected $dates = ['delete_at'];
 
     /**
      * 添加图片并返回Id

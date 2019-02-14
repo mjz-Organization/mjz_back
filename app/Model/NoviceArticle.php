@@ -3,20 +3,14 @@
 namespace App\Model;
 
 
-use Illuminate\Database\Eloquent\SoftDeletes;
-
 class NoviceArticle extends BaseModel
 {
-
-    use SoftDeletes;
 
     protected $table = 'novice_article';
 
     public static $dbTable = 'novice_article';
 
     protected $guarded = [];
-
-    protected $dates = ['delete_at'];
 
     /**
      * 插入新手导读内容
@@ -41,5 +35,25 @@ class NoviceArticle extends BaseModel
         return $pageList->where(function ($query) use($select_data) {
             $query->orWhere('name', 'like', '%'.$select_data.'%')->orWhere('content', 'like', '%'.$select_data.'%');
         })->paginate($per_page);
+    }
+
+    /**
+     * 更新新手导读内容
+     * @param array $data
+     * @return bool
+     */
+    public static function updateNovice(array $data){
+        if(self::updateOrCreate(['id'=>$data['novice_id']],array_slice($data,1))) return true;
+        return false;
+    }
+
+    /**
+     * 批量删除
+     * @param array $data
+     * @return bool
+     */
+    public static function deleteNovice(array $data){
+        if (self::whereIn('id', $data)->delete()) return true;
+        return false;
     }
 }

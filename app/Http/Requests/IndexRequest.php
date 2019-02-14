@@ -39,13 +39,18 @@ class IndexRequest extends BaseRequest
             'novice_type' => 'required|integer'
         ],
         'updateNovice' => [
-
+            'novice_id' => 'required|integer',
+            'title' => 'required|string|max:45',
+            'content' => 'required|string',
+            'novice_type' => 'required|integer'
         ],
         'selectNovice' => [
-
+            'page' => 'required|integer',
+            'per_page' => 'required|integer',
+            'novice_type' => 'required|integer'
         ],
         'deleteNovice' => [
-
+            'na' => 'required|array',
         ]
     ];
 

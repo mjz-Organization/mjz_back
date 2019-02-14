@@ -2,20 +2,16 @@
 
 namespace App\Model;
 
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 
 class CarouselRecord extends BaseModel
 {
-    use SoftDeletes;
 
     protected $table = 'carousel_record';
 
     public static $dbTable = 'carousel_record';
 
     protected $guarded = [];
-
-    protected $dates = ['delete_at'];
 
     /**
      * 添加首页广告

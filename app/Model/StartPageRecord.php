@@ -3,20 +3,16 @@
 namespace App\Model;
 
 
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 
 class StartPageRecord extends BaseModel
 {
-    use SoftDeletes;
 
     protected $table = 'start_page_record';
 
     public static $dbTable = 'start_page_record';
 
     protected $guarded = [];
-
-    protected $dates = ['delete_at'];
 
     /**
      * 分页展示启动页广告

@@ -90,7 +90,6 @@ class IndexController extends Controller
      */
     public function createNoviceArticle(IndexRequest $request){
         $data = $request->all();
-        $data['content'] = htmlentities($data['content']);
         if (NoviceArticle::createNovice($data)){
             return responseToJson(0,'添加成功');
         }else{
@@ -98,10 +97,25 @@ class IndexController extends Controller
         }
     }
 
+    /**
+     * post 更新新手导读页
+     * @param IndexRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function updateNoviceArticle(IndexRequest $request){
-
+        $data = $request->all();
+        if (NoviceArticle::updateNovice($data)){
+            return responseToJson(0,'修改成功');
+        }else{
+            return responseToJson(2,'修改失败');
+        }
     }
 
+    /**
+     * get 获取新手导读页列表
+     * @param IndexRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function selectNoviceArticle(IndexRequest $request){
         $results = NoviceArticle::selectNovice($request->per_page,$request->novice_type,$request->select_data);
         if (empty($results->data)){
@@ -110,8 +124,18 @@ class IndexController extends Controller
         return responseToJson(2,'failure');
     }
 
+    /**
+     * post 删除新手导读文章
+     * @param IndexRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function deleteNoviceArticle(IndexRequest $request){
-
+        $data = $request->all();
+        if (NoviceArticle::deleteNovice($data['na'])){
+            return responseToJson(0,'删除成功');
+        }else{
+            return responseToJson(2,'删除失败');
+        }
     }
 
 }
