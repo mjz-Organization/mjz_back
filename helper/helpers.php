@@ -48,15 +48,13 @@ function isTimeGreater($time, $interval = 10) {
  * @param string $drive
  * @return string|null
  */
-function uploadImg($image,$drive='images') {
-    if ($image) {
-        $fileExtname=$image->getClientOriginalExtension();
-        $path=$image->getRealPath();
-        $imgName=date('YmdHis') . uniqid() . '.' . $fileExtname;
-        $bool= Storage::disk($drive)->put($imgName,file_get_contents($path));
-        if ($bool) {
-            return $imgName;
-        }
+
+function uploadImg($img, $drive='images') {
+    if (!empty($img)) {
+        $imgName = date('YmdHis') . uniqid() . '.' . $img->getClientOriginalExtension();
+        $bool= Storage::disk($drive)->put($imgName,file_get_contents($img->getRealPath()));
+
+        if ($bool) return $imgName;
     }
     return null;
 }
@@ -67,9 +65,8 @@ function uploadImg($image,$drive='images') {
  * @param string $drive
  * @return mixed
  */
-function deleteImg($path,$drive='images'){
-    $imageName = array_last(explode('/',trim($path)));
-    return Storage::disk($drive)->delete($imageName);
+function deleteImg($path, $drive='images') {
+    return Storage::disk($drive)->delete(array_last(explode('/',trim($path))));
 }
 
 /** updated_at/created_at 自动维护
@@ -78,9 +75,9 @@ function deleteImg($path,$drive='images'){
  * @param null $time
  * @return array
  */
-function atTimeSave(array $data,$action = 'create',$time = null){
+function atTimeSave(array $data, $action = 'create', $time = null){
     if ($time == null) $time = time();
-    switch ($action){
+    switch ($action) {
         case 'create':
             $atTime = [
                 'updated_at' => $time,
@@ -93,10 +90,10 @@ function atTimeSave(array $data,$action = 'create',$time = null){
             ];
             break;
     }
-    if(count($data) == count($data,1)){
+    if (count($data) == count($data,1)) {
         return array_merge($data,$atTime);
     }
-    foreach ($data as $key=>$value){
+    foreach ($data as $key => $value) {
         $data[$key] = array_merge($value,$atTime);
     }
     return $data;

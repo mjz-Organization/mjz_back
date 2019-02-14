@@ -10,16 +10,25 @@ namespace App\Http\Controllers\Admin;
 
 use App\Model\Menu;
 
-class MenuController{
+class MenuController {
+    /**
+     * 获取菜单
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getMenu() {
-        $menus = $this->formatMenu(Menu::getFormatMenu());
+        $menus = $this->formatMenu(Menu::getMenus());
         return responseToJson(0, 'success', $menus);
     }
+
+    /**
+     * 格式化菜单
+     * @param $menus
+     * @return array
+     */
     private function formatMenu($menus) {
         $data = [];
         foreach ($menus as $v) {
             if ($v->depth == 1) {
-                $v->children = [];
                 $data[$v->id] = $v;
             }
         }

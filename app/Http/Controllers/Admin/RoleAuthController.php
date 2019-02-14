@@ -9,7 +9,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Model\Role;
-use Illuminate\Http\Request;
 use App\Http\Requests\RoleAuthRequest;
 
 class RoleAuthController

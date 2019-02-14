@@ -23,6 +23,36 @@ Route::group(['prefix' => 'roleAuth'], function () {
 });
 
 /**
+ * 用户管理
+ */
+Route::group(['prefix' => 'userManage'], function () {
+
+    Route::middleware('userType:admin')->group(function() {
+        Route::get('getAdmin', 'UserController@getUser');
+        Route::get('getAdmins', 'UserController@getUsers');
+        Route::post('deleteAdmin', 'UserController@deleteUsers');
+        Route::post('createAdmin', 'UserController@createOrUpdateUser');
+        Route::post('updateAdmin', 'UserController@createOrUpdateUser');
+    });
+
+    Route::middleware('userType:student')->group(function() {
+        Route::get('getStudent', 'UserController@getUser');
+        Route::get('getStudents', 'UserController@getUsers');
+        Route::post('deleteStudent', 'UserController@deleteUsers');
+        Route::post('createStudent', 'UserController@createOrUpdateUser');
+        Route::post('updateStudent', 'UserController@createOrUpdateUser');
+    });
+
+    Route::middleware('userType:customer')->group(function() {
+        Route::get('getCustomer', 'UserController@getUser');
+        Route::get('getCustomers', 'UserController@getUsers');
+        Route::post('deleteCustomer', 'UserController@deleteUsers');
+        Route::post('createCustomer', 'UserController@createOrUpdateUser');
+        Route::post('updateCustomer', 'UserController@createOrUpdateUser');
+    });
+});
+
+/**
  * 启动页路由
  */
 Route::group(['prefix' => 'startPage'], function () {

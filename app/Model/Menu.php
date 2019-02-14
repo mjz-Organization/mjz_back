@@ -9,11 +9,12 @@ class Menu extends BaseModel
     protected $table = 'menu';
     public static $dbTable = 'menu';
 
-    public static function getFormatMenu() {
-        return DB::table(self::$dbTable)
-            ->select('id', 'name', 'pid', 'depth', 'path', 'icon')
-            ->where('status', 0)
-            ->orderBy('code')
-            ->get();
+    /**
+     * 获取菜单
+     * @return \Illuminate\Support\Collection
+     */
+    public static function getMenus() {
+        return DB::table(self::$dbTable)->select('id', 'name', 'pid', 'depth', 'path', 'icon')
+            ->where('status', 0)->orderBy('code')->get();
     }
 }

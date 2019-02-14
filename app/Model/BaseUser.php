@@ -5,10 +5,13 @@ namespace App\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\DB;
 
 class BaseUser extends Authenticatable
 {
     use Notifiable,SoftDeletes;
+
+    protected static $dbTable;
 
     /**
      * The attributes that are mass assignable.
@@ -16,7 +19,7 @@ class BaseUser extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'user','password', 'state'
+        'name','password', 'phone', 'status'
     ];
 
     /**
@@ -57,5 +60,58 @@ class BaseUser extends Authenticatable
         $this->save();
 
         return $this->api_token;
+    }
+
+    public static function getUsers($data) {
+        $pageSize = array_get($data, 'pageSize', 10);
+        $sex    = array_get($data, 'sex');
+        $auth   = array_get($data, 'auth');
+        $name   = array_get($data, 'name');
+        $start  = array_get($data, 'startTime');
+        $end    = array_get($data, 'endTime');
+
+        $query = DB::table(self::$dbTable)
+            ->when($name, function ($query) use ($name) {
+                return $query->where('name', 'like', '%'.$name.'%');
+            })->when($sex, function ($query) use ($sex) {
+                return $query->where('sex', $sex);
+            })->when($auth, function ($query) use ($auth) {
+                return $query->where('is_auth', $auth);
+            });
+
+        //start为假 且end为假（start和end同时存在），则执行whereBetween
+        (empty($start) || empty($end)) || ($query = $query->whereBetween('created_at', [$start, $end]));
+
+        return $query->paginate($pageSize);
+    }
+
+    /**
+     * 删除用户
+     * @param $idArr
+     */
+    public static function deleteUser($idArr) {
+        self::whereIn('id', $idArr)->delete();
+    }
+
+    /**
+     * 创建或者更新用户
+     * @param $data
+     */
+    public static function createOrUpdateUser($data) {
+        $data = self::hashPassword($data);
+        $admin = array_has($data, 'userId') ? self::find($data['userId'])->fill($data) : new self($data);
+        $admin->save();
+    }
+
+    /**
+     * 如果有密码给密码加密
+     * @param $data
+     * @return mixed
+     */
+    private static function hashPassword($data) {
+        if (array_has($data, 'password')) {
+            $data['password'] = bcrypt($data['password']);
+        }
+        return $data;
     }
 }
