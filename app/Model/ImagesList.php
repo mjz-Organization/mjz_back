@@ -3,13 +3,8 @@
 namespace App\Model;
 
 
-use Illuminate\Database\Eloquent\SoftDeletes;
-
-
 class ImagesList extends BaseModel
 {
-
-    use SoftDeletes;
 
     protected $table = 'images_list';
 

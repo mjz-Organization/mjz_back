@@ -3,12 +3,8 @@
 namespace App\Model;
 
 
-use Illuminate\Database\Eloquent\SoftDeletes;
-
 class NoviceArticle extends BaseModel
 {
-
-    use SoftDeletes;
 
     protected $table = 'novice_article';
 
