@@ -8,6 +8,8 @@ class Role extends BaseModel
 {
     protected $table = 'role';
 
+    public static $dbTable = 'role';
+
     /**
      * 创建或更新角色
      * @param $roleName : 角色名称
@@ -16,7 +18,7 @@ class Role extends BaseModel
      * @return bool
      */
     public static function createOrUpdate($roleName, $authArr, $roleId = null) {
-        $role = empty($roleId) ? new self() : self::find($roleId);
+        $role = empty($roleId) ? new static() : self::findOrFail($roleId);
         $role->role_name = $roleName;
 
         DB::beginTransaction();

@@ -41,6 +41,8 @@ Route::group(['prefix' => 'userManage'], function () {
         Route::post('deleteStudent', 'UserController@deleteUsers');
         Route::post('createStudent', 'UserController@createOrUpdateUser');
         Route::post('updateStudent', 'UserController@createOrUpdateUser');
+        Route::post('createStudentAuth', 'UserController@createOrUpdateAuth');
+        Route::post('updateStudentAuth', 'UserController@createOrUpdateAuth');
     });
 
     Route::middleware('userType:customer')->group(function() {
@@ -49,6 +51,9 @@ Route::group(['prefix' => 'userManage'], function () {
         Route::post('deleteCustomer', 'UserController@deleteUsers');
         Route::post('createCustomer', 'UserController@createOrUpdateUser');
         Route::post('updateCustomer', 'UserController@createOrUpdateUser');
+        //TODO::createOrUpdateAuth
+        Route::post('createCustomerAuth', 'UserController@createOrUpdateAuth');
+        Route::post('updateCustomerAuth', 'UserController@createOrUpdateAuth');
     });
 });
 
@@ -92,4 +97,11 @@ Route::group(['prefix' => 'indexPage'], function () {
     //删除新手导读
     Route::post('deleteNovice','IndexController@deleteNoviceArticle');
 
+});
+
+/**
+ * 提现管理
+ */
+Route::group(['prefix' => 'withdrawCash'], function () {
+    Route::get('getCashRecords', 'RoleAuthController@getCashRecords');
 });
