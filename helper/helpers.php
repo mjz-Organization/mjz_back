@@ -98,3 +98,16 @@ function atTimeSave(array $data, $action = 'create', $time = null){
     }
     return $data;
 }
+
+/**
+ * RSA 解密算法
+ * @param $ciphertext
+ * @return string
+ */
+function decryptRSA($ciphertext){
+    $private_key = file_get_contents(base_path('keys/rsa_private_key.pem'));
+    $pi_key =  openssl_pkey_get_private($private_key);
+    $decrypted = "";
+    openssl_private_decrypt(base64_decode($ciphertext),$decrypted,$pi_key);
+    return $decrypted;
+}
