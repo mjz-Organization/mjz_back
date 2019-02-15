@@ -51,7 +51,6 @@ Route::group(['prefix' => 'userManage'], function () {
         Route::post('deleteCustomer', 'UserController@deleteUsers');
         Route::post('createCustomer', 'UserController@createOrUpdateUser');
         Route::post('updateCustomer', 'UserController@createOrUpdateUser');
-        //TODO::createOrUpdateAuth
         Route::post('createCustomerAuth', 'UserController@createOrUpdateAuth');
         Route::post('updateCustomerAuth', 'UserController@createOrUpdateAuth');
     });

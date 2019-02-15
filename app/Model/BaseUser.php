@@ -94,14 +94,14 @@ class BaseUser extends Authenticatable
      */
     public static function createOrUpdateUser($data) {
         $data = self::hashPassword($data);
-        $admin = null;
+        $user = null;
         if (array_has($data, 'userId')) {
-            $admin = self::findOrFail($data['userId'])->fill($data);
+            $user = self::findOrFail($data['userId'])->fill($data);
         } else {
             $data['promo_code'] = self::getPromoCode();
-            $admin = new static($data);
+            $user = new static($data);
         }
-        $admin->save();
+        $user->save();
     }
 
     /**
@@ -122,5 +122,16 @@ class BaseUser extends Authenticatable
      */
     private static function getPromoCode() {
         return bcrypt(time().str_random(5));
+    }
+
+    /**
+     * 获得用户及其认证信息
+     * @param $id
+     * @return mixed
+     */
+    public static function getInfoAndAuth($id) {
+        $user = self::findOrFail($id);
+        $user->userAuth;
+        return $user;
     }
 }

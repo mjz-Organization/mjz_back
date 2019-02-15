@@ -9,11 +9,11 @@ class Student extends BaseUser
 
     protected $fillable = [
         'name', 'phone', 'password' ,'head_img', 'birthday', 'height', 'sex', 'address',
-        'school', 'major', 'introduce', 'creadit_value', 'promo_code', 'status'
+        'school', 'major', 'introduce', 'credit_value', 'promo_code', 'status'
     ];
 
     /**
-     * 一对一的关系，一个用户有一个授权信息
+     * 一对一的关系，一个学生有一个认证信息
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function userAuth() {
@@ -28,13 +28,7 @@ class Student extends BaseUser
     public static function setSelect($query) {
         return $query->select(
             'id','name','phone','head_id','birthday','height','sex','address', 'school','major',
-            'introduce','creadit_value','is_auth','promo_code','status','created_at','updated_at'
+            'introduce','credit_value','is_auth','promo_code','status','created_at','updated_at'
         );
-    }
-
-    public static function getInfoAndAuth($id) {
-        $user = self::findOrFail($id);
-        $user->userAuth;
-        return $user;
     }
 }
