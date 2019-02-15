@@ -100,6 +100,15 @@ Route::group(['prefix' => 'indexPage'], function () {
 });
 
 /**
+ * 投诉管理
+ */
+Route::group(['prefix' => 'complaintManage'], function () {
+    //添加投诉类型
+    Route::post('createType', 'ComplaintController@createComplaintType');
+});
+
+
+/**
  * 提现管理
  */
 Route::group(['prefix' => 'withdrawCash'], function () {
