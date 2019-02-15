@@ -18,12 +18,27 @@ class UserAuth extends BaseModel
     /**
      * 创建或者更新用户授权信息
      * @param $data
+     * @return UserAuth
      */
     public static function createOrUpdateAuth($data) {
-        //TODO::获取登录用户的id
-//        $data['user_id'] = getUserId();
-        $data['user_id'] = 1;
-        $studentAuth = array_has($data, 'authId') ? self::findOrFail($data['authId'])->fill($data) : new static($data);
-        $studentAuth->save();
+        return array_has($data, 'authId') ? self::updateAuth($data) : self::createAuth($data);
+    }
+
+    /**
+     * 更新
+     * @param $data
+     * @return mixed
+     */
+    private static function updateAuth($data) {
+        return self::findOrFail($data['authId'])->fill($data)->save();
+    }
+
+    /**
+     * 创建
+     * @param $data
+     * @return bool|static
+     */
+    private static function createAuth($data) {
+        return array_has($data, 'user_id') ? self::create($data)->save() : false;
     }
 }

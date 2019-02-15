@@ -24,7 +24,7 @@ class UserController {
             case 'student' :
                 return responseToJson(0, 'success', Student::getInfoAndAuth($request->input('userId')));
             case 'customer' :
-                return responseToJson(0, 'success', Customer::findOrFail($request->input('userId')));
+                return responseToJson(0, 'success', Customer::getInfoAndAuth($request->input('userId')));
             default :
                 return responseToJson(2, '请求用户类型错误');
         }
@@ -73,13 +73,17 @@ class UserController {
 
     public function createOrUpdateAuth(UserRequest $request) {
         $data = $request->all();
+        $result = null;
         switch ($request->input('userType')) {
             case 'student' :
-                return responseToJson(0, 'success', UserAuth::createOrUpdateAuth($data));
+                $result = UserAuth::createOrUpdateAuth($data);
+                break;
             case 'customer' :
-                return responseToJson(0, 'success', EnterpriseAuth::createOrUpdateAuth($data));
+                $result = EnterpriseAuth::createOrUpdateAuth($data);
+                break;
             default :
                 return responseToJson(2, '请求用户类型错误');
         }
+        return empty($result) ? responseToJson(2, 'error') : responseToJson(0, 'success', $result);
     }
 }
