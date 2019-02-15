@@ -104,6 +104,12 @@ Route::group(['prefix' => 'indexPage'], function () {
 Route::group(['prefix' => 'complaintManage'], function () {
     //添加投诉类型
     Route::post('createType', 'ComplaintController@createComplaintType');
+    //修改投诉类型
+    Route::post('updateType', 'ComplaintController@updateComplaintType');
+    //查询投诉类型
+    Route::get('selectType', 'ComplaintController@selectComplaintType');
+    //删除投诉类型
+    Route::post('deleteType', 'ComplaintController@deleteComplaintType');
 });
 
 

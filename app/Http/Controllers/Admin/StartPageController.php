@@ -16,10 +16,7 @@ class StartPageController extends Controller
      */
     public function selectStartPageAd(StartPageRequest $request){
         $results = StartPageRecord::selectAd($request->per_page,$request->record_type,$request->select_data);
-        if (empty($results->data)){
-            return responseToJson(0,'success',$results);
-        }
-        return responseToJson(2,'failure');
+        return empty($results->data)?responseToJson(0,'success',$results):responseToJson(2,'failure');
     }
 
     /**
@@ -28,12 +25,7 @@ class StartPageController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function createStartPageAd(StartPageRequest $request){
-        $data = $request->all();
-        if(StartPageRecord::createAd($data)){
-            return responseToJson(0,'添加成功');
-        }else{
-            return responseToJson(2,'添加失败');
-        }
+        return StartPageRecord::createAd($request->all())?responseToJson(0,'添加成功'):responseToJson(2,'添加失败');
     }
 
     /**
@@ -43,12 +35,7 @@ class StartPageController extends Controller
      */
 
     public function updateStartPageAd(StartPageRequest $request){
-        $data = $request->all();
-        if (StartPageRecord::updateAd($data)){
-            return responseToJson(0,'修改成功');
-        }else{
-            return responseToJson(2,'修改失败');
-        }
+        return StartPageRecord::updateAd($request->all())?responseToJson(0,'修改成功'):responseToJson(2,'修改失败');
     }
 
     /**
@@ -58,12 +45,7 @@ class StartPageController extends Controller
      */
 
     public function updateOrderAd(StartPageRequest $request){
-        $data = $request->all();
-        if (StartPageRecord::updateOrderAd($data)){
-            return responseToJson(0,'修改成功');
-        }else{
-            return responseToJson(2,'修改失败');
-        }
+        return StartPageRecord::updateOrderAd($request->all())?responseToJson(0,'修改成功'):responseToJson(2,'修改失败');
     }
 
     /**
@@ -74,11 +56,7 @@ class StartPageController extends Controller
 
     public function deleteStartPageAd(StartPageRequest $request){
         $data = $request->all();
-        if (StartPageRecord::deleteAd($data['ad'])){
-            return responseToJson(0,'删除成功');
-        }else{
-            return responseToJson(2,'删除失败');
-        }
+        return StartPageRecord::deleteAd($data['ad'])?responseToJson(0,'删除成功'):responseToJson(2,'删除失败');
     }
 
 }

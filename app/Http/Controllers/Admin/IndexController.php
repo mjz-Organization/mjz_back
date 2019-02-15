@@ -17,10 +17,7 @@ class IndexController extends Controller
      */
     public function selectIndexPageAd(IndexRequest $request){
         $results = CarouselRecord::selectCarouselAd($request->per_page,$request->record_type,$request->select_data);
-        if (empty($results->data)){
-            return responseToJson(0,'success',$results);
-        }
-        return responseToJson(2,'failure');
+        return empty($results->data)?responseToJson(0,'success',$results):responseToJson(2,'failure');
     }
 
     /**
@@ -30,12 +27,7 @@ class IndexController extends Controller
      */
 
     public function createIndexPageAd(IndexRequest $request){
-        $data = $request->all();
-        if (CarouselRecord::createCarouselAd($data)){
-            return responseToJson(0,'添加成功');
-        }else{
-            return responseToJson(2,'添加失败');
-        }
+        return CarouselRecord::createCarouselAd($request->all())?responseToJson(0,'添加成功'):responseToJson(2,'添加失败');
     }
 
     /**
@@ -45,12 +37,7 @@ class IndexController extends Controller
      */
 
     public function updateIndexPageAd(IndexRequest $request){
-        $data = $request->all();
-        if (CarouselRecord::updateCarouselAd($data)){
-            return responseToJson(0,'修改成功');
-        }else{
-            return responseToJson(2,'修改失败');
-        }
+        return CarouselRecord::updateCarouselAd($request->all())?responseToJson(0,'修改成功'):responseToJson(2,'修改失败');
     }
 
     /**
@@ -60,12 +47,7 @@ class IndexController extends Controller
      */
 
     public function updateOrderIndexPageAd(IndexRequest $request){
-        $data = $request->all();
-        if (CarouselRecord::updateCarouselOrderAd($data)){
-            return responseToJson(0,'修改成功');
-        }else{
-            return responseToJson(2,'修改失败');
-        }
+        return CarouselRecord::updateCarouselOrderAd($request->all())?responseToJson(0,'修改成功'):responseToJson(2,'修改失败');
     }
 
     /**
@@ -76,11 +58,7 @@ class IndexController extends Controller
 
     public function deleteIndexPageAd(IndexRequest $request){
         $data = $request->all();
-        if (CarouselRecord::deleteCarouselAd($data['ad'])){
-            return responseToJson(0,'删除成功');
-        }else{
-            return responseToJson(2,'删除失败');
-        }
+        return CarouselRecord::deleteCarouselAd($data['ad'])?responseToJson(0,'删除成功'):responseToJson(2,'删除失败');
     }
 
     /**
@@ -89,12 +67,7 @@ class IndexController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function createNoviceArticle(IndexRequest $request){
-        $data = $request->all();
-        if (NoviceArticle::createNovice($data)){
-            return responseToJson(0,'添加成功');
-        }else{
-            return responseToJson(2,'添加失败');
-        }
+        return NoviceArticle::createNovice($request->all())?responseToJson(0,'添加成功'):responseToJson(2,'添加失败');
     }
 
     /**
@@ -103,12 +76,7 @@ class IndexController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function updateNoviceArticle(IndexRequest $request){
-        $data = $request->all();
-        if (NoviceArticle::updateNovice($data)){
-            return responseToJson(0,'修改成功');
-        }else{
-            return responseToJson(2,'修改失败');
-        }
+        return NoviceArticle::updateNovice($request->all())?responseToJson(0,'修改成功'):responseToJson(2,'修改失败');
     }
 
     /**
@@ -118,10 +86,7 @@ class IndexController extends Controller
      */
     public function selectNoviceArticle(IndexRequest $request){
         $results = NoviceArticle::selectNovice($request->per_page,$request->novice_type,$request->select_data);
-        if (empty($results->data)){
-            return responseToJson(0,'success',$results);
-        }
-        return responseToJson(2,'failure');
+        return empty($results->data)?responseToJson(0,'success',$results):responseToJson(2,'failure');
     }
 
     /**
@@ -131,11 +96,7 @@ class IndexController extends Controller
      */
     public function deleteNoviceArticle(IndexRequest $request){
         $data = $request->all();
-        if (NoviceArticle::deleteNovice($data['na'])){
-            return responseToJson(0,'删除成功');
-        }else{
-            return responseToJson(2,'删除失败');
-        }
+        return NoviceArticle::deleteNovice($data['na'])?responseToJson(0,'删除成功'):responseToJson(2,'删除失败');
     }
 
 }
