@@ -36,7 +36,6 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
 //            \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            'cors',
         ],
 
         'api' => [
@@ -63,7 +62,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'update' => \App\Http\Middleware\UpdateToken::class,
-        'cors' => \App\Http\Middleware\EnableCrossRequest::class,
         'loginCheck' => \App\Http\Middleware\LoginCheck::class,
         'userType' => \App\Http\Middleware\AddUserType::class,
     ];

@@ -38,6 +38,7 @@ class LoginController extends Controller {
     }
 
     public function login(LoginRequest $request) {
+        $request->password = decryptRSA($request->password);
         if ($this->attemptLogin($request)) {
             $user = $this->guard()->user();
 
