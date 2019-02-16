@@ -18,25 +18,25 @@ class ImagesList extends BaseModel
      * @return int|null
      */
     public static function createImg(array $data){
-        $imgName = uploadImg($data['image']);
-        if ($imgName) return self::create([
-                'path'=>'/storage/images/'.$imgName,
+        $paths = uploadImg($data['image']);
+        if (!empty($paths)) return self::create([
+                'paths'=>json_encode($paths),
                 'content'=>$data['content'],
                 ]);
         return false;
     }
 
     /**
-     * 更新单个图片
+     * 更新图片
      * @param array $data
      * @return bool
      */
-    public static function updateOnlyImg(array $data){
-        $imgName = uploadImg($data['image']);
-        $updateArr = ($imgName == null)? [
+    public static function updateImg(array $data){
+        $paths = uploadImg($data['image']);
+        $updateArr = (empty($paths))? [
                 'content'=>$data['content']
             ] : [
-                'path' => '/storage/images/'.$imgName,
+                'paths' => json_encode($paths),
                 'content'=>$data['content']
             ];
         if ((self::where('id',$data['images_id'])->update($updateArr)) > 0) return true;

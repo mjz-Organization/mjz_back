@@ -49,14 +49,16 @@ function isTimeGreater($time, $interval = 10) {
  * @return string|null
  */
 
-function uploadImg($img, $drive='images') {
-    if (!empty($img)) {
-        $imgName = date('YmdHis') . uniqid() . '.' . $img->getClientOriginalExtension();
-        $bool= Storage::disk($drive)->put($imgName,file_get_contents($img->getRealPath()));
-
-        if ($bool) return $imgName;
+function uploadImg($files, $drive='images') {
+    $imgs = [];
+    foreach (changeToArray($files) as $file){
+        if (!empty($file)) {
+            $imgName = date('YmdHis') . uniqid() . '.' . $file->getClientOriginalExtension();
+            $bool= Storage::disk($drive)->put($imgName,file_get_contents($file->getRealPath()));
+            if ($bool) $imgs[]= asset('/storage/'.$drive.'/'.$imgName);
+        }
     }
-    return null;
+    return $imgs;
 }
 
 /**
@@ -65,8 +67,11 @@ function uploadImg($img, $drive='images') {
  * @param string $drive
  * @return mixed
  */
-function deleteImg($path, $drive='images') {
-    return Storage::disk($drive)->delete(array_last(explode('/',trim($path))));
+function deleteImg($paths, $drive='images') {
+    foreach (changeToArray($paths) as $path){
+        if(!(Storage::disk($drive)->delete(array_last(explode('/',trim($path)))))) return false;
+    }
+    return true;
 }
 
 /** updated_at/created_at 自动维护
@@ -119,4 +124,18 @@ function decryptRSA($ciphertext)
 function getUserId() {
     $user = session('user');
     return empty($user) ? 0 : $user->toArray()['id'];
+}
+
+/**
+ * 返回数组
+ * @param $value
+ * @return array
+ */
+function changeToArray($value){
+    if(!is_array($value)) {
+        $arr = [];
+        $arr[] = $value;
+        return $arr;
+    }
+    return $value;
 }

@@ -110,6 +110,15 @@ Route::group(['prefix' => 'complaintManage'], function () {
     Route::get('selectType', 'ComplaintController@selectComplaintType');
     //删除投诉类型
     Route::post('deleteType', 'ComplaintController@deleteComplaintType');
+
+    Route::post('createRecord', 'ComplaintController@createComplaintRecord');
+
+    Route::get('selectRecord', 'ComplaintController@selectComplaintRecord');
+
+    Route::post('updateRecord', 'ComplaintController@updateComplaintRecord');
+
+    Route::post('deleteRecord', 'ComplaintController@deleteComplaintRecord');
+
 });
 
 

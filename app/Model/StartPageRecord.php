@@ -59,7 +59,7 @@ class StartPageRecord extends BaseModel
     public static function updateAd(array $data){
         DB::beginTransaction();
         try{
-            ImagesList::updateOnlyImg($data);
+            ImagesList::updateImg($data);
             self::where('id',$data['ad_id'])->update([
                 'record_type' => $data['record_type'],
                 'name'=>$data['name']
