@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\ComplainRequest;
 use App\Http\Controllers\Controller;
-use App\Model\CommentList;
+use App\Model\ComplaintRecord;
 use App\Model\ComplainType;
 
 class ComplaintController extends Controller
@@ -49,7 +49,7 @@ class ComplaintController extends Controller
     }
 
     public function createComplaintRecord(ComplainRequest $request){
-        return CommentList::createRecord($request->all())?responseToJson(0,'添加成功'):responseToJson(2,'添加失败');
+        return ComplaintRecord::createRecord($request->all())?responseToJson(0,'添加成功'):responseToJson(2,'添加失败');
     }
 
     public function selectComplaintRecord(ComplainRequest $request){

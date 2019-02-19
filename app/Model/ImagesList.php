@@ -17,11 +17,11 @@ class ImagesList extends BaseModel
      * @param array $data
      * @return int|null
      */
-    public static function createImg(array $data){
-        $paths = uploadImg($data['image']);
+    public static function createImg(array $data,$folder = 'images'){
+        $paths = uploadImg($data['image'],$folder);
         if (!empty($paths)) return self::create([
                 'paths'=>json_encode($paths),
-                'content'=>$data['content'],
+                'content'=>isset($data['content'])?$data['content']:'',
                 ]);
         return false;
     }
@@ -31,8 +31,8 @@ class ImagesList extends BaseModel
      * @param array $data
      * @return bool
      */
-    public static function updateImg(array $data){
-        $paths = uploadImg($data['image']);
+    public static function updateImg(array $data,$folder = 'images'){
+        $paths = uploadImg($data['image'],$folder);
         $updateArr = (empty($paths))? [
                 'content'=>$data['content']
             ] : [

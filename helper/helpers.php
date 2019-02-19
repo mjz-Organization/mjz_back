@@ -55,7 +55,7 @@ function uploadImg($files, $drive='images') {
         if (!empty($file)) {
             $imgName = date('YmdHis') . uniqid() . '.' . $file->getClientOriginalExtension();
             $bool= Storage::disk($drive)->put($imgName,file_get_contents($file->getRealPath()));
-            if ($bool) $imgs[]= asset('/storage/'.$drive.'/'.$imgName);
+            if ($bool) $imgs[]= '/storage/'.$drive.'/'.$imgName;
         }
     }
     return $imgs;

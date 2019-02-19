@@ -27,7 +27,7 @@ class ComplainRequest extends BaseRequest
             'plaintiff' => 'required|numeric',
             'complaint_type' => 'required|numeric',
             'complaint_reason' => 'required|string',
-            'images' => 'file|image'
+            'images' => 'file|image|array'
         ],
         'updateRecord' => [
 
