@@ -53,7 +53,8 @@ class ComplaintController extends Controller
     }
 
     public function selectComplaintRecord(ComplainRequest $request){
-
+        $results = ComplaintRecord::selectRecord($request->per_page);
+        return empty($results->data)?responseToJson(0,'success',$results):responseToJson(2,'failure');
     }
 
     public function updateComplaintRecord(ComplainRequest $request){

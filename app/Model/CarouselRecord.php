@@ -42,7 +42,8 @@ class CarouselRecord extends BaseModel
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     public static function selectCarouselAd($per_page = 10,$record_type = 0,$select_data = null){
-        $pageList = ImagesList::rightJoin(self::$dbTable,ImagesList::$dbTable.'.id','=',self::$dbTable.'.images_id')
+        $pageList = self::join(ImagesList::$dbTable,ImagesList::$dbTable.'.id','=',self::$dbTable.'.images_id')
+            ->select([self::$dbTable.'.id','name','record_type','img_order','images_id','paths','content',self::$dbTable.'.created_at',self::$dbTable.'.updated_at'])
             ->where('record_type','=',$record_type);
         if ($select_data == null) return $pageList->paginate($per_page);
         return $pageList->where(function ($query) use($select_data) {

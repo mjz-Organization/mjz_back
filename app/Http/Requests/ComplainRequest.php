@@ -33,7 +33,8 @@ class ComplainRequest extends BaseRequest
 
         ],
         'selectRecord' => [
-
+            'page' => 'required|integer',
+            'per_page' => 'required|integer'
         ],
         'deleteRecord' => [
 
