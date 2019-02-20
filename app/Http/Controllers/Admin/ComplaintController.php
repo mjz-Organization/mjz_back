@@ -48,21 +48,33 @@ class ComplaintController extends Controller
         return ComplainType::deleteType($data['ct'])?responseToJson(0,'删除成功'):responseToJson(2,'删除失败');
     }
 
+    /**
+     * 添加投诉记录
+     * @param ComplainRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function createComplaintRecord(ComplainRequest $request){
         return ComplaintRecord::createRecord($request->all())?responseToJson(0,'添加成功'):responseToJson(2,'添加失败');
     }
 
+    /**
+     * 查询投诉记录
+     * @param ComplainRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function selectComplaintRecord(ComplainRequest $request){
         $results = ComplaintRecord::selectRecord($request->per_page);
         return empty($results->data)?responseToJson(0,'success',$results):responseToJson(2,'failure');
     }
 
-    public function updateComplaintRecord(ComplainRequest $request){
-
-    }
-
+    /**
+     * 删除投诉记录
+     * @param ComplainRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function deleteComplaintRecord(ComplainRequest $request){
-
+        $data = $request->all();
+        return ComplaintRecord::deleteRecord($data['cr'])?responseToJson(0,'删除成功'):responseToJson(2,'删除失败');
     }
 
 }

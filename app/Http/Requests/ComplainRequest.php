@@ -25,19 +25,17 @@ class ComplainRequest extends BaseRequest
         'createRecord' => [
             'defendant' => 'required|numeric',
             'plaintiff' => 'required|numeric',
+            'direction' => 'required|string|max:1',
             'complaint_type' => 'required|numeric',
             'complaint_reason' => 'required|string',
             'images' => 'file|image|array'
-        ],
-        'updateRecord' => [
-
         ],
         'selectRecord' => [
             'page' => 'required|integer',
             'per_page' => 'required|integer'
         ],
         'deleteRecord' => [
-
+            'cr' => 'required|array'
         ]
     ];
 

@@ -101,7 +101,10 @@ Route::group(['prefix' => 'indexPage'], function () {
 /**
  * 投诉管理
  */
-Route::group(['prefix' => 'complaintManage'], function () {
+Route::group(/**
+ *
+ */
+    ['prefix' => 'complaintManage'], function () {
     //添加投诉类型
     Route::post('createType', 'ComplaintController@createComplaintType');
     //修改投诉类型
@@ -110,13 +113,11 @@ Route::group(['prefix' => 'complaintManage'], function () {
     Route::get('selectType', 'ComplaintController@selectComplaintType');
     //删除投诉类型
     Route::post('deleteType', 'ComplaintController@deleteComplaintType');
-
+    //添加投诉记录
     Route::post('createRecord', 'ComplaintController@createComplaintRecord');
-
+    //查询投诉记录
     Route::get('selectRecord', 'ComplaintController@selectComplaintRecord');
-
-    Route::post('updateRecord', 'ComplaintController@updateComplaintRecord');
-
+    //删除投诉记录
     Route::post('deleteRecord', 'ComplaintController@deleteComplaintRecord');
 
 });

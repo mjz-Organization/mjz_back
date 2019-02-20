@@ -127,6 +127,19 @@ function getUserId() {
 }
 
 /**
+ * php二维数组转置
+ * @param array $data
+ * @return array
+ */
+function transposition(array $data) {
+    $arr = [];
+    array_filter($data, function($val) use (&$arr){
+        foreach($val as $k=>$v) $arr[$k][] = $v;
+    });
+    return $arr;
+}
+
+/**
  * 返回数组
  * @param $value
  * @return array

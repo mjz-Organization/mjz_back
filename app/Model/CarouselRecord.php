@@ -100,7 +100,7 @@ class CarouselRecord extends BaseModel
      * @return bool
      */
     public static function deleteCarouselAd(array $data){
-        $data = self::deleteArr($data);
+        $data = transposition($data);
         DB::beginTransaction();
         try{
             self::whereIn('id', $data['ad_id'])->delete();
@@ -112,18 +112,4 @@ class CarouselRecord extends BaseModel
         }
         return false;
     }
-
-    /**
-     * 构建必要数组
-     * @param array $data
-     * @return array
-     */
-    private static function deleteArr(array $data){
-        $arr = ['ad_id'=>[],'images_id'=>[],'path'=>[]];
-        foreach ($data as $val)
-            foreach ($arr as $key=>$item)
-                $arr[$key][] = $val[$key];
-        return $arr;
-    }
-
 }
