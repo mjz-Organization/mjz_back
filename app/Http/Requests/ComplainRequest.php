@@ -36,6 +36,10 @@ class ComplainRequest extends BaseRequest
         ],
         'deleteRecord' => [
             'cr' => 'required|array'
+        ],
+        'exportRecord' => [
+            'start_time' => 'required|date',
+            'end_time' => 'required|date'
         ]
     ];
 

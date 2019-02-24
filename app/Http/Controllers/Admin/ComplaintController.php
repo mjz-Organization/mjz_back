@@ -63,7 +63,7 @@ class ComplaintController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function selectComplaintRecord(ComplainRequest $request){
-        $results = ComplaintRecord::selectRecord($request->per_page);
+        $results = ComplaintRecord::selectRecord($request->per_page,$request->select_data);
         return empty($results->data)?responseToJson(0,'success',$results):responseToJson(2,'failure');
     }
 
@@ -77,7 +77,10 @@ class ComplaintController extends Controller
         return ComplaintRecord::deleteRecord($data['cr'])?responseToJson(0,'删除成功'):responseToJson(2,'删除失败');
     }
 
-
+    /**
+     * 导出投诉记录
+     * @param ComplainRequest $request
+     */
     public function exportComplaintRecord(ComplainRequest $request){
         ComplaintRecord::exportRecord($request->all());
     }
