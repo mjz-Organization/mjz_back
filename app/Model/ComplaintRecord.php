@@ -67,4 +67,8 @@ class ComplaintRecord extends BaseModel
         }
         return false;
     }
+
+    public static function exportRecord(array $data){
+
+    }
 }

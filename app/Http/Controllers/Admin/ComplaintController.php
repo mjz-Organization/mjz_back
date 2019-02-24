@@ -77,4 +77,9 @@ class ComplaintController extends Controller
         return ComplaintRecord::deleteRecord($data['cr'])?responseToJson(0,'删除成功'):responseToJson(2,'删除失败');
     }
 
+
+    public function exportComplaintRecord(ComplainRequest $request){
+        ComplaintRecord::exportRecord($request->all());
+    }
+
 }

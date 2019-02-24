@@ -119,6 +119,8 @@ Route::group(/**
     Route::get('selectRecord', 'ComplaintController@selectComplaintRecord');
     //删除投诉记录
     Route::post('deleteRecord', 'ComplaintController@deleteComplaintRecord');
+    //导出投诉记录
+    Route::get('exportRecord', 'ComplaintController@exportComplaintRecord');
 
 });
 
